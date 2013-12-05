@@ -13,11 +13,25 @@ Gem::Specification.new do |spec|
   spec.homepage      = ""
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
   spec.executables   = ["jetcms"]
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  
+  # = MANIFEST =
+  spec.files = %w[
+    bin/jetcms
+    Gemfile
+    Gemfile.lock
+    jetcms.gemspec
+    lib/jetcms/command.rb
+    lib/jetcms/version.rb
+    lib/jetcms.rb
+    LICENSE.txt
+    Rakefile
+    README.md
+  ]
+  # = MANIFEST =
 end

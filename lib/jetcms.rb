@@ -1,5 +1,5 @@
 require "jetcms/version"
+require "jetcms/command"
 
 module Jetcms
-  # Your code goes here...
 end
