@@ -1,7 +1,13 @@
 # coding: utf-8
 
+require 'fileutils'
+
 module Jetcms
   class Command
+    def self.template_path
+      File.expand_path("../template", File.dirname(__FILE__))
+    end
+  
     def self.generate_files(dirname)
       puts "Successfully generated template."
 
@@ -25,7 +31,7 @@ module Jetcms
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}/#{nowdate.strftime('%d')}") )
   
       # article のサンプルデータを作成する
-      File.open( File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}/#{nowdate.strftime('%d')}/example.md"), "w").close()
+      FileUtils.cp(self.template_path + "/example.md", File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}/#{nowdate.strftime('%d')}/example.md"))
   
       # generate .gitkeep
       File.open( File.expand_path("./#{dirname}/_jetcms/page/.gitkeep"), "w").close()

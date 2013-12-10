@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
     lib/jetcms/command.rb
     lib/jetcms/version.rb
     lib/jetcms.rb
+    lib/template/example.md
     LICENSE.txt
     Rakefile
     README.md
