@@ -34,9 +34,18 @@ if "build" == jetcms_cmd
 
   unless File.exists?(jetcms_path)
     puts "Error: Please execute command jetcms directory. Dose not exists '_jetcms' directory."
-  else
+  else    
+    puts "Info: delete old assets"
+    FileUtils.rm_rf(["assets"])
+    
+    puts "Info: put asset image files."
+    FileUtils.mkdir_p("assets/images")
+    FileUtils.cp_r(jetcms_path + "/assets/images", "./assets/")
+    
+    
     puts "Info: compile sass to css."
     Jetcms::SassCompiler.run
+    
   
     puts "Info: Execute build."
     
