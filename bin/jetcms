@@ -2,6 +2,10 @@
 
 require 'jetcms'
 
+# lib
+require 'fileutils'
+require 'rdiscount'
+
 # jetcms command.
 jetcms_cmd = ARGV[0]
 
@@ -16,6 +20,48 @@ if "new" == jetcms_cmd
     exit
   else
     Jetcms::Command.generate_files(directory_name)  
+  end
+end
+
+# Application build.
+if "build" == jetcms_cmd
+  current_path = Dir::pwd
+  jetcms_path  = current_path + "/_jetcms"
+
+  unless File.exists?(jetcms_path)
+    puts "Error: Please execute command jetcms directory. Dose not exists '_jetcms' directory."
+  else
+    puts "Info: Execute build."
+    
+    if File.exists?(current_path + "/article")
+      puts "Info: file cleaning."
+      FileUtils.rm_rf(current_path + "/article")
+    end
+    
+    Dir::glob(jetcms_path + "/article/**/*.md").each {|f|      
+      article_file = f.dup
+      article_file.slice!(jetcms_path + "/article")
+      article_basename = File.basename(article_file, ".md")
+      article_dirname  = File::dirname(article_file)
+      
+      # generate file path
+      article_path = current_path + "/article" + article_dirname
+      
+      # create directory
+      FileUtils.mkdir_p(article_path)
+      
+      markdown_text = ""
+      
+      # read article.
+      open(f) do |file|
+        markdown_text = file.read
+      end
+      
+      # create new file
+      open(article_path + "/#{article_basename}.html", "w") do |file|
+        file.write( RDiscount.new(markdown_text).to_html )
+      end
+    }
   end
 end
 
