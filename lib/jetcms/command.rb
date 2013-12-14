@@ -30,12 +30,13 @@ module Jetcms
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}") )
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}/#{nowdate.strftime('%d')}") )
   
-      # article のサンプルデータを作成する
+      # generate sample data.
       FileUtils.cp(self.template_path + "/example.md", File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}/#{nowdate.strftime('%d')}/example.md"))
+      FileUtils.cp(self.template_path + "/article.html.erb", File.expand_path("./#{dirname}/_jetcms/layout/article.html.erb"))
   
       # generate .gitkeep
       File.open( File.expand_path("./#{dirname}/_jetcms/page/.gitkeep"), "w").close()
-      File.open( File.expand_path("./#{dirname}/_jetcms/layout/.gitkeep"), "w").close()
+      # File.open( File.expand_path("./#{dirname}/_jetcms/layout/.gitkeep"), "w").close()
   
       File.open( File.expand_path("./#{dirname}/_jetcms/assets/images/.gitkeep"), "w" ).close()
       File.open( File.expand_path("./#{dirname}/_jetcms/assets/javascripts/.gitkeep"), "w" ).close()
