@@ -23,7 +23,7 @@ if "new" == jetcms_cmd
     puts "Error: less argments."
     exit
   else
-    Jetcms::Command.generate_files(directory_name)  
+    Jetcms::Command.generate_files(directory_name)
   end
 end
 
