@@ -18,6 +18,7 @@ module Jetcms
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/page/example") )
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/layout") )
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/article") )
+      Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/config") )
 
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/assets") )
       Dir::mkdir( File.expand_path("./#{dirname}/_jetcms/assets/images") )
@@ -33,6 +34,7 @@ module Jetcms
       # generate sample data.
       FileUtils.cp(self.template_path + "/example.md", File.expand_path("./#{dirname}/_jetcms/article/#{nowdate.strftime('%Y')}/#{nowdate.strftime('%m')}/#{nowdate.strftime('%d')}/example.md"))
       FileUtils.cp(self.template_path + "/article.html.erb", File.expand_path("./#{dirname}/_jetcms/layout/article.html.erb"))
+      FileUtils.cp(self.template_path + "/s3.yml.sample", File.expand_path("./#{dirname}/_jetcms/config/s3.yml.sample"))
   
       # generate .gitkeep
       File.open( File.expand_path("./#{dirname}/_jetcms/page/.gitkeep"), "w").close()

@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
     lib/jetcms.rb
     lib/template/example.md
     lib/template/article.html.erb
+    lib/template/s3.yml.sample
     LICENSE.txt
     Rakefile
     README.md

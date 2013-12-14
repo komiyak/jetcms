@@ -1,0 +1,3 @@
+deploy:
+  host: www.example.com
+  region: ap-northeast-1
