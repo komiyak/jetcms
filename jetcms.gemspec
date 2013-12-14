@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
     Gemfile.lock
     jetcms.gemspec
     lib/jetcms/command.rb
+    lib/jetcms/sass.rb
     lib/jetcms/version.rb
     lib/jetcms.rb
     lib/template/example.md

@@ -35,6 +35,9 @@ if "build" == jetcms_cmd
   unless File.exists?(jetcms_path)
     puts "Error: Please execute command jetcms directory. Dose not exists '_jetcms' directory."
   else
+    puts "Info: compile sass to css."
+    Jetcms::SassCompiler.run
+  
     puts "Info: Execute build."
     
     if File.exists?(current_path + "/article")
