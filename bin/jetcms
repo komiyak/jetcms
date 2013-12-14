@@ -5,6 +5,7 @@ require 'jetcms'
 # lib
 require 'fileutils'
 require 'erb'
+require 'yaml'
 
 # gems
 require 'rdiscount'
@@ -98,6 +99,31 @@ if "build" == jetcms_cmd
     }
   end
 end
+
+# Application build.
+if "s3deploy" == jetcms_cmd
+  current_path = Dir::pwd
+  jetcms_path  = current_path + "/_jetcms"
+  
+  unless File.exists?(jetcms_path)
+    puts "Error: Please execute command jetcms directory. Dose not exists '_jetcms' directory."
+  else
+    s3_settings = nil
+    
+    unless File.exists?(jetcms_path + "/config/s3.yml")
+      puts "Error: Dose not exists 'config/s3.yml'. Please copy 's3.yml.sample' to 's3.yml' and setting aws s3 buckets."
+      exit
+    else
+      open(jetcms_path + "/config/s3.yml") do |file|
+        s3_settings = YAML.load(file.read)
+      end
+    end
+  
+    puts "Info: deploy to s3 server."
+    system('aws s3 sync . s3://' + s3_settings["deploy"]["host"] + ' --region ' + s3_settings["deploy"]["region"] + ' --exclude "*.DS_Store" --exclude "_jetcms/**/*.*" --exclude ".gitignore" --exclude "*.gitkeep"')
+  end
+end
+
 
 
 # EOF
