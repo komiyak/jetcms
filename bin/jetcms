@@ -4,7 +4,11 @@ require 'jetcms'
 
 # lib
 require 'fileutils'
+require 'erb'
+
+# gems
 require 'rdiscount'
+
 
 # jetcms command.
 jetcms_cmd = ARGV[0]
@@ -38,6 +42,20 @@ if "build" == jetcms_cmd
       FileUtils.rm_rf(current_path + "/article")
     end
     
+    # layout file body
+    layout_html = ""
+    
+    # load layout file.
+    unless File.exists?(jetcms_path + "/layout/article.html.erb")
+      puts "Error: Dose not exists '_jetcms/layout/article.html.erb'. please make it file."
+      exit
+    else
+      open(jetcms_path + "/layout/article.html.erb") do |f|
+        layout_html = f.read
+      end
+    end
+    
+    
     Dir::glob(jetcms_path + "/article/**/*.md").each {|f|      
       article_file = f.dup
       article_file.slice!(jetcms_path + "/article")
@@ -57,9 +75,13 @@ if "build" == jetcms_cmd
         markdown_text = file.read
       end
       
+      # convert ERB
+      embed_article_html = RDiscount.new(markdown_text).to_html
+      result_html = ERB.new(layout_html).result(binding)
+      
       # create new file
       open(article_path + "/#{article_basename}.html", "w") do |file|
-        file.write( RDiscount.new(markdown_text).to_html )
+        file.write( result_html )
       end
     }
   end
